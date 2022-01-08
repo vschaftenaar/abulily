@@ -17,7 +17,3 @@ tryCatch({
 )
   return(dir)
 }
-
-test_function=function(x,y){
-  return(x**y)
-}
