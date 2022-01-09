@@ -1,11 +1,17 @@
 get_directory<- function(){
-tryCatch({
-  dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
-  },error=function(cond){
-    dir <- dirname(regmatches(commandArgs(), regexpr("(?<=^--file=).+", commandArgs(), perl=TRUE)))
-  })
+  cmdArgs <- commandArgs(trailingOnly = FALSE)
+  needle <- "--file="
+  match <- grep(needle, cmdArgs)
+  if (length(match) > 0) {
+    # Rscript
+    dir <- dirname(normalizePath(sub(needle, "", cmdArgs[match])))
+  } else {
+    # 'source'd via R console
+    dir <- dirname(normalizePath(sys.frames()[[1]]$ofile))
+  }
   return(dir)
 }
+
 
 
 
