@@ -1,4 +1,3 @@
-
 get_directory=function(){
   tryCatch({
     dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
