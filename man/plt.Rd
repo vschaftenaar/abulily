@@ -1,7 +1,6 @@
 \name{plt}
 \alias{plt}
 \title{abulily plot}
-}
 \description{
 Bar plot and/or 2 lines
 }\examples{
