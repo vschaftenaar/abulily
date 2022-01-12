@@ -1,46 +1,14 @@
-get_directory<- function(){
-  cmdArgs <- commandArgs(trailingOnly = FALSE)
-  needle <- "--file="
-  match <- grep(needle, cmdArgs)
-  if (length(match) > 0) {
-    # Rscript
-    current_dir <- dirname(normalizePath(sub(needle, "", cmdArgs[match])))
-  } else {
-    # 'source'd via R console
-    current_dir <- dirname(normalizePath(sys.frames()[[1]]$ofile))
-  }
-  return(current_dir)
-}
-
-get_directory_az=function(){
-  tryCatch({
-  current_dir <- (dirname(rstudioapi::getActiveDocumentContext()$path))
-  },error=function(cond){
-      getScriptPath <- function(){
-          cmd.args <- commandArgs()
-          m <- regexpr("(?<=^--file=).+", cmd.args, perl=TRUE)
-          script.dir <- dirname(regmatches(cmd.args, m))
-          if(length(script.dir) == 0) stop("can't determine script dir: please call the script with Rscript")
-          if(length(script.dir) > 1) stop("can't determine script dir: more than one '--file' argument detected")
-          return(script.dir)
-          }
-      current_dir <-  getScriptPath()
-      
-      })
-  return(current_dir)
-}
-
-
-get_directory_az_2=function(){
-  tryCatch({
-    current_dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
-  },error=function(cond){
-    current_dir <- dirname(regmatches(commandArgs(), regexpr("(?<=^--file=).+", commandArgs(), perl=TRUE)))
+get_directory <- function(){
+  current_dir <- tryCatch({
+    dirname(rstudioapi::getActiveDocumentContext()$path)
+    },error=function(cond){
+    dirname(regmatches(commandArgs(), regexpr("(?<=^--file=).+", commandArgs(), perl=TRUE)))
   })
   return(current_dir)
 }
 
-plt=function(
+
+plt <- function(
   x=NULL,
   bar=NULL,
   line.1=NULL,
