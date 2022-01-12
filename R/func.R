@@ -4,10 +4,10 @@ get_directory<- function(){
   match <- grep(needle, cmdArgs)
   if (length(match) > 0) {
     # Rscript
-    dir <- dirname(normalizePath(sub(needle, "", cmdArgs[match])))
+    current_dir <- dirname(normalizePath(sub(needle, "", cmdArgs[match])))
   } else {
     # 'source'd via R console
-    dir <- dirname(normalizePath(sys.frames()[[1]]$ofile))
+    current_dir <- dirname(normalizePath(sys.frames()[[1]]$ofile))
   }
   return(dir)
 }
