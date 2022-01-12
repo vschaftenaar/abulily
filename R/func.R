@@ -12,6 +12,23 @@ get_directory<- function(){
   return(current_dir)
 }
 
+get_directory_az=function(){
+  tryCatch({
+  current_dir <- (dirname(rstudioapi::getActiveDocumentContext()$path))
+  },error=function(cond){
+      getScriptPath <- function(){
+          cmd.args <- commandArgs()
+          m <- regexpr("(?<=^--file=).+", cmd.args, perl=TRUE)
+          script.dir <- dirname(regmatches(cmd.args, m))
+          if(length(script.dir) == 0) stop("can't determine script dir: please call the script with Rscript")
+          if(length(script.dir) > 1) stop("can't determine script dir: more than one '--file' argument detected")
+          return(script.dir)
+          }
+      current_dir <-  getScriptPath()
+      
+      })
+  return(current_dir)
+}
 
 
 
