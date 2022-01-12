@@ -9,7 +9,7 @@ get_directory<- function(){
     # 'source'd via R console
     current_dir <- dirname(normalizePath(sys.frames()[[1]]$ofile))
   }
-  return(dir)
+  return(current_dir)
 }
 
 
