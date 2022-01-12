@@ -31,6 +31,14 @@ get_directory_az=function(){
 }
 
 
+get_directory_az_2=function(){
+  tryCatch({
+    current_dir <- dirname(rstudioapi::getActiveDocumentContext()$path)
+  },error=function(cond){
+    current_dir <- dirname(regmatches(commandArgs(), regexpr("(?<=^--file=).+", commandArgs(), perl=TRUE)))
+  })
+  return(current_dir)
+}
 
 plt=function(
   x=NULL,
