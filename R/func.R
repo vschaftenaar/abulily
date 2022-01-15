@@ -7,12 +7,12 @@ get_directory <- function(){
   return(current_dir)
 }
 
-install_personal_github <- function(user,package,path,delete_tar=T){
+install_personal_github <- function(user,package,branch='main',path=NULL,delete_tar=T){
   
-  lnk <- paste0('https://github.com/',user,'/',package,'/archive/main.tar.gz')
+  lnk <- paste0('https://github.com/',user,'/',package,'/archive/',branch,'.tar.gz')
   download.file(url = lnk,destfile = paste0(package,'.tar.gz'))
-
-  current_path <- getwd()
+  
+  if(is.null(path))current_path <- getwd() else current_path <- path
   install.packages(paste0(current_path,'/',package,'.tar.gz'), repos = NULL, type = 'source')
   
   if(delete_tar)file.remove(paste0(package,'.tar.gz'))
