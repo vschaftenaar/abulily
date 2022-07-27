@@ -163,3 +163,15 @@ plt <- function(
   }
 
 }
+
+
+pretty_axis <- function(side=2){
+  axis(
+    side,
+    axTicks(side),
+    ifelse(axTicks(side)<1000,axTicks(side),ifelse(axTicks(side)<1000000,paste0(axTicks(side)/1000,'k'),paste0(axTicks(side)/1000000,'M'))))
+}
+
+barry_lim <- function(barry){
+  c(head(barry,1)-.5*(barry[2]-barry[1]),tail(barry,1)+.5*(barry[2]-barry[1]))
+  }
